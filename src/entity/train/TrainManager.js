@@ -1,3 +1,5 @@
-export class TrainManager {
+import {EntityManager} from "../EntityManager";
+
+export class TrainManager extends EntityManager {
 
 }

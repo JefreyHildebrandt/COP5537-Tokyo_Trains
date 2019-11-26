@@ -1,10 +1,10 @@
 import '../css/train.css';
-import { Game } from './core/Game.js';
+import { TrainGraph } from './core/TrainGraph.js';
 
 document.addEventListener("DOMContentLoaded",() => {
-    const skiGame = new Game();
-    skiGame.load().then(() => {
-        skiGame.init();
-        skiGame.run();
+    const tokyoTrainGraph = new TrainGraph();
+    tokyoTrainGraph.load().then(() => {
+        tokyoTrainGraph.init();
+        tokyoTrainGraph.run();
     });
 });
