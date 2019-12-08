@@ -6,13 +6,13 @@ export class EdgeManager {
     }
 
     static drawEdges(canvas, stationMap) {
-        const ctx = canvas.ctx
+        const ctx = canvas.ctx;
         stationMap.forEach((station, key) => {
             station.edges.forEach(edge => {
                 ctx.save();
                 ctx.beginPath();
                 ctx.moveTo(station.x, station.y);
-                const connectedNode = stationMap.get(edge.connectedNodeId);
+                const connectedNode = stationMap.get(edge.connectedStationId);
                 ctx.lineTo(connectedNode.x, connectedNode.y);
                 ctx.strokeStyle = EdgeManager.CompanyColor[edge.companyId];
                 ctx.stroke();

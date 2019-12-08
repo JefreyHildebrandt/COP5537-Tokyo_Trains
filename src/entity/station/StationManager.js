@@ -1,19 +1,50 @@
 import {Parser} from "../../core/Parser";
 import {EntityManager} from "../EntityManager";
+import {DepthFirstSearch} from "../../core/GraphUtils/DepthFirstSearch";
+import {GraphUtils} from "../../core/GraphUtils";
 
 export class StationManager extends EntityManager {
 
     constructor() {
         super();
-        this.stationMap = Parser.getNodes();
+        let stationMap = Parser.getNodes();
+        this.mostConnectedStation = this._getStationWithMostConnections(stationMap);
+        stationMap = this._removeDuplicateEdges(stationMap);
+        this.mostConnectedStation = this._getStationWithMostConnections(stationMap);
+        stationMap = this._removeUnconnectedStations(stationMap, this.mostConnectedStation);
+        this.nodeSizes = this._getNodeSizeExtremes(stationMap);
+        stationMap = this._scaleStations(stationMap, this.nodeSizes.smallestX, this.nodeSizes.smallestY);
+        this.stationMap = stationMap;
+        this.path = GraphUtils.getEulerianPath(this);
     }
 
-    getNodeSizeExtremes() {
+    _removeDuplicateEdges(stationMap) {
+        stationMap.forEach(station => {
+           const edgeSet = new Set();
+           const toRemove = new Set();
+           station.edges.forEach(edge => {
+              if(edgeSet.has(edge.connectedStationId)) {
+                  toRemove.add(edge.connectedStationId);
+              }
+              edgeSet.add(edge.connectedStationId);
+           });
+           for(let i=station.edges.length - 1; i>=0; i--) {
+               if(toRemove.has(station.edges[i].connectedStationId)) {
+                   toRemove.delete(station.edges[i].connectedStationId);
+                   station.edges.splice(i, 1);
+               }
+           }
+        });
+
+        return stationMap;
+    }
+
+    _getNodeSizeExtremes(stationMap) {
         let largestX = 0;
         let largestY = 0;
         let smallestX = Infinity;
         let smallestY = Infinity;
-        this.stationMap.forEach(value => {
+        stationMap.forEach(value => {
             largestX = value.x > largestX ? value.x : largestX;
             largestY = value.y > largestY ? value.y : largestY;
 
@@ -24,43 +55,56 @@ export class StationManager extends EntityManager {
         return {largestX: largestX, largestY: largestY, smallestX: smallestX, smallestY: smallestY};
     }
 
-    scaleStations(subtractX, subtractY) {
-        this.stationMap.forEach((value, key) => {
+    _getStationWithMostConnections(stationMap) {
+        let mostConnectedStation = undefined;
+        let mostConnections = -1;
+        stationMap.forEach(station => {
+            const numberOfConnections = station.edges.length;
+            if(numberOfConnections > mostConnections) {
+                mostConnections = numberOfConnections;
+                mostConnectedStation = station;
+            }
+        });
+        return mostConnectedStation;
+    }
+
+    _removeUnconnectedStations(stationMap, stationToTest) {
+        const nodesConnectedToStationSet = DepthFirstSearch.depthFirstSearch(stationMap, stationToTest);
+        const nodesToBeRemoved = [];
+        stationMap.forEach(station => {
+           if(!nodesConnectedToStationSet.has(station.id)) {
+               nodesToBeRemoved.push(station.id);
+           }
+        });
+        nodesToBeRemoved.forEach(nodeToBeRemoved => {
+            stationMap.delete(nodeToBeRemoved);
+        });
+        return stationMap;
+    }
+
+    _scaleStations(nStationMap, subtractX, subtractY) {
+        const stationMap = nStationMap;
+        stationMap.forEach((value, key) => {
             const readjustedValue = value;
             readjustedValue.x -= subtractX;
             readjustedValue.y -= subtractY;
-            this.stationMap.set(key, readjustedValue);
+            stationMap.set(key, readjustedValue);
         });
+        return stationMap;
     }
 
     drawStations(canvas) {
         this.stationMap.forEach(station => {
-            this.drawCoordinates(canvas.ctx, station);
+            station.draw(canvas.ctx, station);
         });
     }
 
-    drawCoordinates(ctx, station) {
-        const x = station.x;
-        const y = station.y;
-        var pointSize = 6; // Change according to the size of the point.
-        const numPeopleAtStation = station.peopleAtStation.length;
-        ctx.save();
-        ctx.fillStyle = numPeopleAtStation > 0 ? "orange" : "black";
-        ctx.beginPath(); //Start path
-        ctx.arc(x, y, pointSize, 0, Math.PI * 2, true); // Draw a point using the arc function of the canvas with a point structure.
-        ctx.fill(); // Close the path and fill.
-        ctx.restore();
-        if(numPeopleAtStation > 0) {
-            this.drawTextAbovePoint(ctx, station.peopleAtStation.length, x, y);
-        }
-    }
-
-    drawTextAbovePoint(ctx, text, x, y) {
-        ctx.save();
-        const fontSize = 15;
-        ctx.font = fontSize + "px Verdana";
-        ctx.fillText(text, x, y + fontSize + 5);
-        ctx.restore();
+    resetData() {
+        this.stationMap.forEach(station => {
+            station.selected = false;
+            station.peopleAtStation = [];
+            station.trainsAtStation = [];
+        });
     }
 
 }

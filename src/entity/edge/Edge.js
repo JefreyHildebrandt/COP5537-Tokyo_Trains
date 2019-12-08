@@ -1,8 +1,8 @@
 export class Edge {
-    constructor(companyId, companyName, connectedNodeId, distance) {
+    constructor(companyId, companyName, connectedStationId, distance) {
         this.companyId = companyId;
         this.companyName = companyName;
-        this.connectedNodeId = connectedNodeId;
+        this.connectedStationId = connectedStationId;
         this.distance = distance;
     }
 }
