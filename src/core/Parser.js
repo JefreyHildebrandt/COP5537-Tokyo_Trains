@@ -20,6 +20,7 @@ export class Parser {
             const y = Math.abs(node.position.y);
             const index = i;
             const id = node.data.station_g_cd;
+            // const id = node.data.station_g_cd;
             const nodeId = node.data.id;
             const address = node.data.add;
             const stationName = node.data.station_name;

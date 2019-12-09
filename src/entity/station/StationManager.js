@@ -40,15 +40,6 @@ export class StationManager extends EntityManager {
         return stationMap;
     }
 
-    // _removeAllEmptyEdgesAndReferences(stationMap) {
-    //     const allStations = Array.from(stationMap.values());
-    //     const noEdgeNodes = allStations.filter(station => station.edges.length < 1);
-    //     noEdgeNodes.forEach(noEdgeNode => {
-    //
-    //     });
-    //     return stationMap;
-    // }
-
     _getNodeSizeExtremes(stationMap) {
         let largestX = 0;
         let largestY = 0;

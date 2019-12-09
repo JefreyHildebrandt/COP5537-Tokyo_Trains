@@ -32,7 +32,11 @@ export class TrainGraph {
         this.canvas.clearCanvas()
         this.updateData();
         this.drawAll();
+        if(this.timeManager.shouldEndSimulation()) {
 
+            this.personManager.people.forEach(person)
+            window.confirm();
+        }
         window.requestAnimationFrame(() => {
             this.run();
         });

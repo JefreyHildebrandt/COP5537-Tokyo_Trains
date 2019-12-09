@@ -27,7 +27,7 @@ export class Person extends Entity {
 
     timeIncrement() {
         if(this.state !== Person.State.ARRIVED && this._hasMadeItToDestination()) {
-            this.console.log('HAS ARRIVED! ID: ' + this.id);
+            console.log('HAS ARRIVED! ID: ' + this.id);
             this.state = Person.State.ARRIVED;
         }
         if(this.state === Person.State.ARRIVED) {
@@ -80,7 +80,7 @@ export class Person extends Entity {
             return undefined;
         }
 
-        const distanceFromCurrentStationToDestination =
+        const distanceFromCurrentStationToDestination = Dijkstra.getDistanceOnPath(this.stationManager.path, this.currentStation.id, this.endingStation.id);
             Dijkstra.getDistanceBetweenTwoStations(
                 this.stationManager.stationMap,
                 this.currentStation.id,
@@ -88,14 +88,13 @@ export class Person extends Entity {
         let smallestDistance = distanceFromCurrentStationToDestination;
         let bestTrain = undefined;
         this.currentStation.trainsAtStation.forEach(train => {
-            const distanceFromTrainNextStationToDestination =
-                Dijkstra.getDistanceBetweenTwoStations(
-                    this.stationManager.stationMap,
-                    this.currentStation.id,
-                    train.getNextStationInfo().nextStation.id);
-            if(distanceFromTrainNextStationToDestination < smallestDistance) {
-                smallestDistance = distanceFromTrainNextStationToDestination;
-                bestTrain = train;
+            const nextTrain = train.getNextStationInfo();
+            if(nextTrain && nextTrain.nextStation && nextTrain.nextStation.id) {
+                const distanceFromTrainNextStationToDestination = Dijkstra.getDistanceOnPath(this.stationManager.path, train.getNextStationInfo().nextStation.id, this.endingStation.id);
+                if(distanceFromTrainNextStationToDestination < smallestDistance) {
+                    smallestDistance = distanceFromTrainNextStationToDestination;
+                    bestTrain = train;
+                }
             }
         });
 
