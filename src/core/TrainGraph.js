@@ -52,7 +52,7 @@ export class TrainGraph {
         infoString += 'There were ' + Constants.NUMBER_OF_PEOPLE + ' people\n';
         infoString += 'There were ' + Constants.NUMBER_OF_TRAINS + ' trains\n';
         infoString += 'The trains could choose from the following to be express: ' + Constants.NUMBER_OF_STOPS_FOR_TRAINS_RANDOMIZE + '\n';
-        infoString += 'The distance increments people could choose from are: ' + Constants.DISTANCE_WANT_TO_TRAVEL;
+        infoString += 'The distance increments people could choose from are:\n     ' + Constants.DISTANCE_WANT_TO_TRAVEL + '\n';
         infoString += 'The average wait time at the stations were: ';
         const totalStations = 369;
         let totalTimeWaited = 0;

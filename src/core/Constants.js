@@ -13,5 +13,5 @@ export class Constants {
 
     //TIME
     static TIME_INCREMENT = 1;
-    static TOTAL_TIME = 1000;
+    static TOTAL_TIME = 1500;
 }

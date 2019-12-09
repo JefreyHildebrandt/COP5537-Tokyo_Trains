@@ -2,7 +2,21 @@ export class Dijkstra {
     static alreadyCalculated = new Map();
 
     static getDistanceOnPath(path, sourceId, targetId) {
-        return Math.abs(path.indexOf(sourceId) - path.indexOf(targetId));
+        let smallestFromSource = Infinity;
+        const startingIndex = path.indexOf(sourceId);
+        for(let i=startingIndex; i<path.length; i++) {
+            if(path[i] === targetId) {
+                smallestFromSource = i - startingIndex;
+                break;
+            }
+        }
+        for(let i=startingIndex; i >= 0; i--) {
+            if(path[i] === targetId && (i + startingIndex) < smallestFromSource) {
+                smallestFromSource = i + startingIndex;
+                break;
+            }
+        }
+        return smallestFromSource;
     }
 
     static getDistanceBetweenTwoStations(stationMap, sourceId, targetId) {
