@@ -1,15 +1,14 @@
 export class Constants {
     //TRAINS
-    static NUMBER_OF_TRAINS = 300;
-    static NUMBER_OF_STOPS_FOR_TRAINS_RANDOMIZE = [1, 2, 3];
+    static NUMBER_OF_TRAINS = 30;
+    static NUMBER_OF_STOPS_FOR_TRAINS_RANDOMIZE = [1];
     static TIME_TO_WAIT_TRAINS_RANDOMIZE = [30];
-    static TRAIN_SPEED_RANDOMIZE = [10];
+    static TRAIN_SPEED_RANDOMIZE = [50];
 
     //PEOPLE
-    static NUMBER_OF_PEOPLE = 1;
-    static RUSH_HOUR_RANDOMIZE = [true, false, false, false];
-    static RUSH_HOUR_TIME_PERCENTAGES = [25, 75];
-    static TIME_TO_WAIT_PEOPLE_RANDOMIZE = [10];
+    static NUMBER_OF_PEOPLE = 500;
+    static PERSON_WILL_WAIT_DURING_RUSH_HOUR_PERCENTAGE= 10;
+    static RUSH_HOUR_START_TIME = Constants.TOTAL_TIME/2;
 
     //TIME
     static TIME_INCREMENT = 1;

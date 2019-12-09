@@ -3,14 +3,12 @@ import {StationManager} from "../../entity/station/StationManager";
 import {DepthFirstSearch} from "./DepthFirstSearch";
 
 export class Euler {
-    static getEulerianPath(stationManager) {
-        // make new map so the original does not get affected
-        // let stationManager = new StationManager();
-        let stationMap = stationManager.stationMap;
+    static getEulerianPath() {
+        let stationManager = new StationManager();
+        // return DepthFirstSearch.depthFirstSearchPath(stationManager.stationMap, stationManager.mostConnectedStation).path;
         this.checkCanEuler(stationManager.stationMap);
-        // stationMap = Euler.eulerizeStationMap(stationMap);
-        const path = Euler.getEulerUtil(stationMap, stationManager.mostConnectedStation, []);
-        this.checkPathForAllNodes(stationMap, path);
+        const path = Euler.getEulerUtil(stationManager.stationMap, stationManager.mostConnectedStation, []);
+        this.checkPathForAllNodes(stationManager.stationMap, path);
         return path;
     }
 

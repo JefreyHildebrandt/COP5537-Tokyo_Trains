@@ -30,10 +30,6 @@ export class GraphUtils {
 
     }
 
-    static getEulerianPath(stationManager) {
-        return Euler.getEulerianPath(stationManager);
-    }
-
     static getRandomValueFromArray(items) {
         if(items.length < 1) {
             return undefined;

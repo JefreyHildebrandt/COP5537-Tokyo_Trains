@@ -2,6 +2,7 @@ import {Parser} from "../../core/Parser";
 import {EntityManager} from "../EntityManager";
 import {DepthFirstSearch} from "../../core/GraphUtils/DepthFirstSearch";
 import {GraphUtils} from "../../core/GraphUtils";
+import {Euler} from "../../core/GraphUtils/Euler";
 
 export class StationManager extends EntityManager {
 
@@ -10,12 +11,12 @@ export class StationManager extends EntityManager {
         let stationMap = Parser.getNodes();
         this.mostConnectedStation = this._getStationWithMostConnections(stationMap);
         stationMap = this._removeDuplicateEdges(stationMap);
+        // stationMap = this._removeAllEmptyEdgesAndReferences(stationMap);
         this.mostConnectedStation = this._getStationWithMostConnections(stationMap);
         stationMap = this._removeUnconnectedStations(stationMap, this.mostConnectedStation);
         this.nodeSizes = this._getNodeSizeExtremes(stationMap);
         stationMap = this._scaleStations(stationMap, this.nodeSizes.smallestX, this.nodeSizes.smallestY);
         this.stationMap = stationMap;
-        this.path = GraphUtils.getEulerianPath(this);
     }
 
     _removeDuplicateEdges(stationMap) {
@@ -38,6 +39,15 @@ export class StationManager extends EntityManager {
 
         return stationMap;
     }
+
+    // _removeAllEmptyEdgesAndReferences(stationMap) {
+    //     const allStations = Array.from(stationMap.values());
+    //     const noEdgeNodes = allStations.filter(station => station.edges.length < 1);
+    //     noEdgeNodes.forEach(noEdgeNode => {
+    //
+    //     });
+    //     return stationMap;
+    // }
 
     _getNodeSizeExtremes(stationMap) {
         let largestX = 0;

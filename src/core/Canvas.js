@@ -2,13 +2,14 @@ export class Canvas {
     constructor(width, height) {
         this.width = width;
         this.height = height;
+        this.id = 'trainCanvas';
 
         this.createCanvas();
     }
 
     createCanvas() {
         const canvas = document.createElement('canvas');
-        canvas.id = "trainCanvas";
+        canvas.id = this.id;
         canvas.width = this.width || window.devicePixelRatio;
         canvas.height = this.height || window.devicePixelRatio;
         canvas.style.width = this.width + 'px';
