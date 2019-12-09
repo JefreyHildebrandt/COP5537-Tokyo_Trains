@@ -18,13 +18,22 @@ export class PersonManager extends EntityManager {
                 console.error('path is too small to create people');
                 return people;
             }
-            let startingStation = GraphUtils.getRandomValueFromArray(this.stationManager.path);
-            let endingStation = GraphUtils.getRandomValueFromArray(this.stationManager.path);
-            if(startingStation === endingStation) {
-                while(startingStation === endingStation) {
-                    endingStation = GraphUtils.getRandomValueFromArray(this.stationManager.path);
-                }
+            // let startingStation = GraphUtils.getRandomValueFromArray(this.stationManager.path);
+            let startingStationIndex = GraphUtils.getRandomValueBetweenNumbers(0, this.stationManager.path.length);
+            let travelFromStart = GraphUtils.getRandomValueFromArray(Constants.DISTANCE_WANT_TO_TRAVEL);
+            if((startingStationIndex + travelFromStart) >= this.stationManager.path.length || (startingStationIndex + travelFromStart) < 0) {
+                travelFromStart = travelFromStart * -1;
             }
+            let endingStationIndex = startingStationIndex + travelFromStart;
+            // let endingStation = GraphUtils.getRandomValueFromArray(this.stationManager.path);
+
+            let startingStation = this.stationManager.path[startingStationIndex];
+            let endingStation = this.stationManager.path[endingStationIndex];
+            // if(startingStation === endingStation) {
+            //     while(startingStation === endingStation) {
+            //         endingStation = GraphUtils.getRandomValueFromArray(this.stationManager.path);
+            //     }
+            // }
             const timeToBeginWaitingAtStartingStation = this._getPersonTimeToStartWaitingForTrain();
             startingStation = this.stationManager.stationMap.get(startingStation);
             endingStation = this.stationManager.stationMap.get(endingStation);

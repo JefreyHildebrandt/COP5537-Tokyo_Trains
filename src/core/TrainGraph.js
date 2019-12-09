@@ -8,6 +8,8 @@ import {PersonManager} from "../entity/person/PersonManager";
 import {TimeManager} from "./TimeManager";
 import {Mouse} from "./Mouse";
 import {Euler} from "./GraphUtils/Euler";
+import {Constants} from "./Constants";
+import {Person} from "../entity/person/Person";
 
 export class TrainGraph {
     init() {
@@ -29,17 +31,46 @@ export class TrainGraph {
     }
 
     run() {
+        if(this.timeManager.timeElapsed % 10 === 0) {
+            console.log('Time Elapsed:' + this.timeManager.timeElapsed);
+        }
         this.canvas.clearCanvas()
         this.updateData();
         this.drawAll();
         if(this.timeManager.shouldEndSimulation()) {
-
-            this.personManager.people.forEach(person)
-            window.confirm();
+            window.confirm(this.createAlert());
         }
-        window.requestAnimationFrame(() => {
-            this.run();
+        else {
+            window.requestAnimationFrame(() => {
+                this.run();
+            });
+        }
+    }
+
+    createAlert() {
+        let infoString = '';
+        infoString += 'There were ' + Constants.NUMBER_OF_PEOPLE + ' people\n';
+        infoString += 'There were ' + Constants.NUMBER_OF_TRAINS + ' trains\n';
+        infoString += 'The trains could choose from the following to be express: ' + Constants.NUMBER_OF_STOPS_FOR_TRAINS_RANDOMIZE + '\n';
+        infoString += 'The distance increments people could choose from are: ' + Constants.DISTANCE_WANT_TO_TRAVEL;
+        infoString += 'The average wait time at the stations were: ';
+        const totalStations = 369;
+        let totalTimeWaited = 0;
+        this.stationManager.stationMap.forEach(station => {
+            totalTimeWaited += station.extraTimePeopleSpentWaiting;
         });
+        infoString += Math.round(totalTimeWaited / totalStations) + '\n';
+
+        let totalPeopleArrived = 0;
+        this.personManager.people.forEach(person => {
+            if(person.state === Person.State.ARRIVED) {
+                totalPeopleArrived++;
+            }
+        });
+        infoString += 'The total number of people that arrived was: ' + totalPeopleArrived + '\n';
+        infoString += 'Please refresh the browser to run again';
+
+        return infoString;
     }
 
     updateData() {
