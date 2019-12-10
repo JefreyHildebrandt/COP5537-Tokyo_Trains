@@ -1,22 +1,4 @@
-import {StationManager} from '../entity/station/StationManager';
-import {Euler} from "./GraphUtils/Euler";
-
 export class GraphUtils {
-    // static getWeightedAdjacencyMatrix(stationMap) {
-    //     // initialize 2D array
-    //     const weightedAdjacencyMatrix = new Array(stationMap.size).fill(0);
-    //     for (let i = 0; i < weightedAdjacencyMatrix.length; i++) {
-    //         weightedAdjacencyMatrix[i] = new Array(stationMap.size).fill(0);
-    //     }
-    //
-    //     stationMap.forEach((station, key) => {
-    //         station.edges.forEach(edge => {
-    //             weightedAdjacencyMatrix[station.index][stationMap.get(edge.connectedStationId).index] = GraphUtils.distanceBetweenPoints(station, stationMap.get(edge.connectedStationId));
-    //         });
-    //     });
-    //
-    //     return weightedAdjacencyMatrix;
-    // }
 
     static distanceBetweenPoints(point1, point2) {
         const x1 = point1.x;
@@ -24,10 +6,6 @@ export class GraphUtils {
         const y1 = point1.y;
         const y2 = point2.y;
         return Math.sqrt( Math.pow((x1-x2), 2) + Math.pow((y1-y2), 2));
-    }
-
-    static transposeGraph(stationMap) {
-
     }
 
     static getRandomValueFromArray(items) {

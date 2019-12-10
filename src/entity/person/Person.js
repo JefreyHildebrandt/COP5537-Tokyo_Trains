@@ -54,7 +54,6 @@ export class Person extends Entity {
             && this.currentTrain.state === Train.State.WAITING) {
             this.currentTrain = this._takeWhichTrain();
         }
-        // this._onTrain();
     }
 
     _onTrain() {

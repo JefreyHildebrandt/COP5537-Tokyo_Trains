@@ -20,13 +20,11 @@ export class Parser {
             const y = Math.abs(node.position.y);
             const index = i;
             const id = node.data.station_g_cd;
-            // const id = node.data.station_g_cd;
             const nodeId = node.data.id;
             const address = node.data.add;
             const stationName = node.data.station_name;
             nodeIdToStationIdConversionMap.set(nodeId, id);
             if(!nodeMap.has(id)) {
-                // console.error('There should not be multiple of the same id.  id:' + id);
                 nodeMap.set(id, new Station(x, y, address, stationName, index, id))
             }
 

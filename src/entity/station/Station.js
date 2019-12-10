@@ -1,5 +1,4 @@
 import {Entity} from "../Entity";
-import {AssetManager} from "../../core/AssetManager";
 
 export class Station extends Entity {
     constructor(x, y, address, stationName, index, id) {
@@ -55,7 +54,6 @@ export class Station extends Entity {
     draw(ctx) {
         const x = this.x;
         const y = this.y;
-        const pointSize = 6; // Change according to the size of the point.
         const numPeopleAtStation = this.peopleAtStation.length;
         this.drawPoint(ctx, 6, 'black');
         if(numPeopleAtStation > 0) {

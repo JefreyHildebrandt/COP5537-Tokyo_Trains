@@ -1,7 +1,6 @@
 import {Entity} from "../Entity";
 import {AssetManager} from "../../core/AssetManager";
 import {GraphUtils} from "../../core/GraphUtils";
-import {Constants} from "../../core/Constants";
 
 export class Train extends Entity {
 

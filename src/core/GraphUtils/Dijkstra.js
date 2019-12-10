@@ -83,8 +83,4 @@ export class Dijkstra {
 
         return minId;
     }
-
-    static getPathBetweenTwoStations(stationMap, id1, id2) {
-        return [];
-    }
 }

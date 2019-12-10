@@ -16,8 +16,6 @@ export class AssetManager {
             const assetImage = new Image();
             assetImage.src = assetUrl;
             assetImage.onload = () => {
-                // assetImage.width /= 2;
-                // assetImage.height /= 2;
                 if(variable === 'train') {
                     AssetManager.train = assetImage;
                 }

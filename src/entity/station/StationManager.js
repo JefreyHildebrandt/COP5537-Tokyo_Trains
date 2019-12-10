@@ -11,7 +11,6 @@ export class StationManager extends EntityManager {
         let stationMap = Parser.getNodes();
         this.mostConnectedStation = this._getStationWithMostConnections(stationMap);
         stationMap = this._removeDuplicateEdges(stationMap);
-        // stationMap = this._removeAllEmptyEdgesAndReferences(stationMap);
         this.mostConnectedStation = this._getStationWithMostConnections(stationMap);
         stationMap = this._removeUnconnectedStations(stationMap, this.mostConnectedStation);
         this.nodeSizes = this._getNodeSizeExtremes(stationMap);

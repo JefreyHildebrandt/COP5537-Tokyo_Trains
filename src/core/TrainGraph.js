@@ -2,7 +2,6 @@ import {AssetManager} from "./AssetManager";
 import {StationManager} from "../entity/station/StationManager";
 import {Canvas} from "./Canvas";
 import {EdgeManager} from "../entity/edge/EdgeManager";
-import {GraphUtils} from "./GraphUtils";
 import {TrainManager} from "../entity/train/TrainManager";
 import {PersonManager} from "../entity/person/PersonManager";
 import {TimeManager} from "./TimeManager";
@@ -38,7 +37,7 @@ export class TrainGraph {
         this.updateData();
         this.drawAll();
         if(this.timeManager.shouldEndSimulation()) {
-            window.confirm(this.createAlert());
+            alert(this.createAlert());
         }
         else {
             window.requestAnimationFrame(() => {
@@ -49,11 +48,12 @@ export class TrainGraph {
 
     createAlert() {
         let infoString = '';
-        infoString += 'There were ' + Constants.NUMBER_OF_PEOPLE + ' people\n';
-        infoString += 'There were ' + Constants.NUMBER_OF_TRAINS + ' trains\n';
-        infoString += 'The trains could choose from the following to be express: ' + Constants.NUMBER_OF_STOPS_FOR_TRAINS_RANDOMIZE + '\n';
-        infoString += 'The distance increments people could choose from are:\n     ' + Constants.DISTANCE_WANT_TO_TRAVEL + '\n';
-        infoString += 'The average wait time at the stations were: ';
+        infoString += '- The simulation lasted ' + Constants.TOTAL_TIME + ' ticks\n';
+        infoString += '- There were ' + Constants.NUMBER_OF_PEOPLE + ' people\n';
+        infoString += '- There were ' + Constants.NUMBER_OF_TRAINS + ' trains\n';
+        infoString += '- The trains could choose from the following to be express: ' + Constants.NUMBER_OF_STOPS_FOR_TRAINS_RANDOMIZE + '\n';
+        infoString += '- The distance increments people could choose from are:\n       ' + Constants.DISTANCE_WANT_TO_TRAVEL + '\n';
+        infoString += '- The average wait time at the stations were: ';
         const totalStations = 369;
         let totalTimeWaited = 0;
         this.stationManager.stationMap.forEach(station => {

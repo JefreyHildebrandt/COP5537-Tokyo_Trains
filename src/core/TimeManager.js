@@ -5,10 +5,6 @@ export class TimeManager {
         this.timeElapsed = 0;
     }
 
-    convertTimeElapsedToSeconds() {
-        return this.timeElapsed;
-    }
-
     incrementTime() {
         this.timeElapsed += Constants.TIME_INCREMENT;
     }

@@ -1,9 +1,9 @@
 export class Constants {
     //TRAINS
     static NUMBER_OF_TRAINS = 100;
-    static NUMBER_OF_STOPS_FOR_TRAINS_RANDOMIZE = [1, 2, 3, 4];
+    static NUMBER_OF_STOPS_FOR_TRAINS_RANDOMIZE = [1, 2, 3, 5, 7, 10];
     static TIME_TO_WAIT_TRAINS_RANDOMIZE = [30];
-    static TRAIN_SPEED_RANDOMIZE = [50];
+    static TRAIN_SPEED_RANDOMIZE = [25];
 
     //PEOPLE
     static NUMBER_OF_PEOPLE = 500;
@@ -13,5 +13,5 @@ export class Constants {
 
     //TIME
     static TIME_INCREMENT = 1;
-    static TOTAL_TIME = 1500;
+    static TOTAL_TIME = 1000;
 }
