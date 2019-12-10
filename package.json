@@ -1,7 +1,10 @@
 {
   "name": "ceros-ski",
   "version": "1.0.0",
-  "description": "Ceros full stack developer code implementation",
+  "engines": {
+    "node": "12.13.1"
+  },
+  "description": "Tokyo Trains Simulation",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development",
