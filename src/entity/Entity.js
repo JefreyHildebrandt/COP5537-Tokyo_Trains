@@ -1,8 +1,11 @@
+/**
+ * Base class for an entity
+ * All entities have xy coordinates
+ */
 export class Entity {
     constructor(props) {
         this.x = props.x;
         this.y = props.y;
-        this.image = props.image;
         this.id = props.id;
     }
 

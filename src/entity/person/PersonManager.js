@@ -11,6 +11,11 @@ export class PersonManager extends EntityManager {
         this.people = this._createPeople();
     }
 
+    /**
+     * Creates people with random values
+     * @returns {[]}
+     * @private
+     */
     _createPeople() {
         const people = [];
         for(let id=0; id<Constants.NUMBER_OF_PEOPLE; id++) {
@@ -39,6 +44,11 @@ export class PersonManager extends EntityManager {
         return people;
     }
 
+    /**
+     * Finds when a person should start waiting for the train
+     * @returns {number}
+     * @private
+     */
     _getPersonTimeToStartWaitingForTrain() {
         const isWaitingDuringRushHour = GraphUtils.getRandomValueBetweenNumbers(0, 100) < Constants.PERSON_WILL_WAIT_DURING_RUSH_HOUR_PERCENTAGE;
         if(isWaitingDuringRushHour) {
@@ -47,6 +57,9 @@ export class PersonManager extends EntityManager {
         return GraphUtils.getRandomValueBetweenNumbers(0, Constants.TOTAL_TIME);
     }
 
+    /**
+     * has all people update themselves
+     */
     handlePeopleUpdate() {
         this.people.forEach(person => {
             person.timeIncrement();

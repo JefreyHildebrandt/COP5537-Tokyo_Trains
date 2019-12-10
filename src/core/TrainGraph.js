@@ -1,15 +1,17 @@
-import {AssetManager} from "./AssetManager";
 import {StationManager} from "../entity/station/StationManager";
 import {Canvas} from "./Canvas";
 import {EdgeManager} from "../entity/edge/EdgeManager";
 import {TrainManager} from "../entity/train/TrainManager";
 import {PersonManager} from "../entity/person/PersonManager";
 import {TimeManager} from "./TimeManager";
-import {Mouse} from "./Mouse";
 import {Euler} from "./GraphUtils/Euler";
 import {Constants} from "./Constants";
 import {Person} from "../entity/person/Person";
 
+/**
+ * Main function of the program
+ * Keeps track of all data and implements the main loop of the program
+ */
 export class TrainGraph {
     init() {
         this.stationManager = new StationManager();
@@ -18,7 +20,6 @@ export class TrainGraph {
         const canvasWidth = nodeSizes.largestX - nodeSizes.smallestX;
         const canvasHeight = nodeSizes.largestY - nodeSizes.smallestY;
         this.canvas = new Canvas(canvasWidth, canvasHeight);
-        this.mouse = new Mouse(this.canvas, this.stationManager);
         this.initializeChangingEntities();
     }
 
@@ -46,6 +47,10 @@ export class TrainGraph {
         }
     }
 
+    /**
+     * Alerts the user when the simulation is finished and gives data
+     * @returns {string}
+     */
     createAlert() {
         let infoString = '';
         infoString += '- The simulation lasted ' + Constants.TOTAL_TIME + ' ticks\n';
@@ -84,9 +89,5 @@ export class TrainGraph {
         this.trainManager.drawTrains(this.canvas);
         this.stationManager.drawStations(this.canvas);
         this.personManager.drawPeople(this.canvas);
-    }
-
-    async load() {
-        await AssetManager.loadAssets();
     }
 }

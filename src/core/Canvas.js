@@ -7,6 +7,9 @@ export class Canvas {
         this.createCanvas();
     }
 
+    /**
+     * Creates the canvas which contains all of the imagery
+     */
     createCanvas() {
         const canvas = document.createElement('canvas');
         canvas.id = this.id;

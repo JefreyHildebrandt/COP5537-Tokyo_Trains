@@ -3,7 +3,14 @@ import {Station} from "../entity/station/Station";
 import {Edge} from "../entity/edge/Edge";
 import {GraphUtils} from "./GraphUtils";
 
+/**
+ * Parses the Cytoscape Tokyo Trains file and turns it into a collection of Stations and Edges
+ */
 export class Parser {
+    /**
+     * Returns the station map
+     * @returns {*}
+     */
     static getNodes() {
         const nodeList = tokyoTrains.elements.nodes;
         let nodeMaps = this.convertNodeListToMap(nodeList);
@@ -11,6 +18,11 @@ export class Parser {
         return nodeMap;
     }
 
+    /**
+     * takes a node list and converts it to a map where the key is the id of the station
+     * @param nodeList
+     * @returns {{nodeMap: *, nodeIdToStationIdConversionMap: *}}
+     */
     static convertNodeListToMap(nodeList) {
         const nodeMap = new Map();
         const nodeIdToStationIdConversionMap = new Map();
@@ -33,6 +45,12 @@ export class Parser {
         return {nodeMap: nodeMap, nodeIdToStationIdConversionMap: nodeIdToStationIdConversionMap};
     }
 
+    /**
+     * Goes through the edges array and links the map to its values
+     * @param nodeMap
+     * @param nodeIdToStationIdConversionMap
+     * @returns {*}
+     */
     static attachEdgesToNodes(nodeMap, nodeIdToStationIdConversionMap) {
         const edgeList = tokyoTrains.elements.edges;
         edgeList.forEach(edge => {

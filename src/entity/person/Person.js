@@ -2,6 +2,9 @@ import {Entity} from "../Entity";
 import {Dijkstra} from "../../core/GraphUtils/Dijkstra";
 import {Train} from "../train/Train";
 
+/**
+ * Represents a single person in the simulation
+ */
 export class Person extends Entity {
     static State = {
         WAITING: 0,

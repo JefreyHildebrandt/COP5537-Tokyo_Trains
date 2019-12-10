@@ -3,8 +3,6 @@ import { TrainGraph } from './core/TrainGraph.js';
 
 document.addEventListener("DOMContentLoaded",() => {
     const tokyoTrainGraph = new TrainGraph();
-    tokyoTrainGraph.load().then(() => {
-        tokyoTrainGraph.init();
-        tokyoTrainGraph.run();
-    });
+    tokyoTrainGraph.init();
+    tokyoTrainGraph.run();
 });

@@ -1,6 +1,13 @@
 export class Dijkstra {
     static alreadyCalculated = new Map();
 
+    /**
+     * Custom implementation that uses the path array and finds how close the target id is from the source along the path
+     * @param path
+     * @param sourceId
+     * @param targetId
+     * @returns {number}
+     */
     static getDistanceOnPath(path, sourceId, targetId) {
         let smallestFromSource = Infinity;
         const startingIndex = path.indexOf(sourceId);
@@ -19,6 +26,15 @@ export class Dijkstra {
         return smallestFromSource;
     }
 
+    /**
+     * Finds the distance within the path from the source to target
+     * The distance is representative of the distance between the x and y coordinates of the points
+     * Checks a map to see if the value was already calculated
+     * @param path
+     * @param sourceId
+     * @param targetId
+     * @returns {number}
+     */
     static getDistanceBetweenTwoStations(stationMap, sourceId, targetId) {
         const key1 = sourceId + ',' + targetId;
         const key2 = targetId + ',' + sourceId;
@@ -31,6 +47,13 @@ export class Dijkstra {
         return Dijkstra.getDistanceAndPathBetweenTwoStations(stationMap, sourceId, targetId).distance;
     }
 
+    /**
+     * Dijkstra's algorithm
+     * @param stationMap
+     * @param sourceId
+     * @param targetId
+     * @returns {{path: *, distance: *}}
+     */
     static getDistanceAndPathBetweenTwoStations(stationMap, sourceId, targetId) {
         const dist = new Map();
         dist.set(sourceId, 0);
@@ -61,6 +84,13 @@ export class Dijkstra {
         return {distance: dist.get(targetId), path: path};
     }
 
+    /**
+     * Obtains the path from Dijkstra's algorithm
+     * @param parent
+     * @param id
+     * @param path
+     * @returns {*}
+     */
     static getPathFromParents(parent, id, path) {
         if(!parent.has(id)) {
             path.push(id);
@@ -71,6 +101,12 @@ export class Dijkstra {
         return path
     }
 
+    /**
+     * Finds the minimum distance in the set
+     * @param dist
+     * @param sptSet
+     * @returns {undefined}
+     */
     static minDistance(dist, sptSet) {
         let min = Infinity;
         let minId = undefined;

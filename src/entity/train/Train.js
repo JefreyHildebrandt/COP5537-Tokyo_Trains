@@ -1,7 +1,9 @@
 import {Entity} from "../Entity";
-import {AssetManager} from "../../core/AssetManager";
 import {GraphUtils} from "../../core/GraphUtils";
 
+/**
+ * Represents a single train
+ */
 export class Train extends Entity {
 
     static Direction = {
@@ -16,7 +18,6 @@ export class Train extends Entity {
 
     constructor(stationManager, path, direction, timeToWaitAtAStation, skipNumberOfStations, startingPathIndex, startingState, id, speed) {
         super({id: id});
-        this.image = AssetManager.train;
         this.stationManager = stationManager;
         this.path = path;
         this.direction = direction || Train.Direction.FORWARD;
@@ -31,6 +32,9 @@ export class Train extends Entity {
         this.speed = speed;
     }
 
+    /**
+     * Goes here each tick of the simulation
+     */
     timeIncrement() {
         switch(this.state) {
             case Train.State.WAITING:
@@ -40,6 +44,7 @@ export class Train extends Entity {
                     this.timeLeftToWait = this.timeToWaitAtAStation;
                 }
                 break;
+                // if moving then continue towards the next station
             case Train.State.MOVING:
                 const newPoint = this._moveTowardsNextStation();
                 this.x = newPoint.x;
@@ -103,7 +108,6 @@ export class Train extends Entity {
         else {
             console.error('The direction is not a valid enum');
         }
-        // let nextIndex = Train.Direction.FORWARD ? this.atPathIndex + 1 : this.atPathIndex - 1;
         const nextStation = this.stationManager.stationMap.get(this.path[nextIndex])
         return {nextStation: nextStation, pathIndex: nextIndex, direction: direction};
     }

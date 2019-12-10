@@ -10,6 +10,11 @@ export class TrainManager extends EntityManager {
         this.trains = this._createTrains();
     }
 
+    /**
+     * Creates all trains
+     * @returns {[]}
+     * @private
+     */
     _createTrains() {
         const trains = [];
 
@@ -26,6 +31,9 @@ export class TrainManager extends EntityManager {
         return trains;
     }
 
+    /**
+     * Each tick have trains update themselves
+     */
     handleTrainsUpdate() {
         this.trains.forEach(train => {
             train.timeIncrement();

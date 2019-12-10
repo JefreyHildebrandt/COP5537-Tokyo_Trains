@@ -18,6 +18,12 @@ export class StationManager extends EntityManager {
         this.stationMap = stationMap;
     }
 
+    /**
+     * Removes when one station has multiple of the same node pointing to it
+     * @param stationMap
+     * @returns {*}
+     * @private
+     */
     _removeDuplicateEdges(stationMap) {
         stationMap.forEach(station => {
            const edgeSet = new Set();
@@ -39,6 +45,12 @@ export class StationManager extends EntityManager {
         return stationMap;
     }
 
+    /**
+     * Goes through all nodes and finds the height/width so the canvas can scale it
+     * @param stationMap
+     * @returns {{largestX: *, largestY: *, smallestY: *, smallestX: *}}
+     * @private
+     */
     _getNodeSizeExtremes(stationMap) {
         let largestX = 0;
         let largestY = 0;
@@ -55,6 +67,12 @@ export class StationManager extends EntityManager {
         return {largestX: largestX, largestY: largestY, smallestX: smallestX, smallestY: smallestY};
     }
 
+    /**
+     * Finds the station with the most nodes attached
+     * @param stationMap
+     * @returns {undefined}
+     * @private
+     */
     _getStationWithMostConnections(stationMap) {
         let mostConnectedStation = undefined;
         let mostConnections = -1;
@@ -68,6 +86,14 @@ export class StationManager extends EntityManager {
         return mostConnectedStation;
     }
 
+    /**
+     * Removes any station that is not connected by using depth first search
+     * This eliminates any stations that are by themselves
+     * @param stationMap
+     * @param stationToTest
+     * @returns {*}
+     * @private
+     */
     _removeUnconnectedStations(stationMap, stationToTest) {
         const nodesConnectedToStationSet = DepthFirstSearch.depthFirstSearch(stationMap, stationToTest);
         const nodesToBeRemoved = [];
@@ -82,6 +108,14 @@ export class StationManager extends EntityManager {
         return stationMap;
     }
 
+    /**
+     * Scales the stations so the fit to the screen
+     * @param nStationMap
+     * @param subtractX
+     * @param subtractY
+     * @returns {*}
+     * @private
+     */
     _scaleStations(nStationMap, subtractX, subtractY) {
         const stationMap = nStationMap;
         stationMap.forEach((value, key) => {

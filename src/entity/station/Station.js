@@ -13,12 +13,20 @@ export class Station extends Entity {
         this.extraTimePeopleSpentWaiting = 0;
     }
 
+    /**
+     * trains add themselves to the station when they arrive
+     * @param train
+     */
     addTrainToStation(train) {
         if(this._getIndexOfTrain(train) === -1) {
             this.trainsAtStation.push(train);
         }
     }
 
+    /**
+     * trains remove themselves from the station when they arrive
+     * @param train
+     */
     removeTrainFromStation(train) {
         const trainIndex = this._getIndexOfTrain(train);
         if(trainIndex !== -1) {
@@ -30,12 +38,20 @@ export class Station extends Entity {
         return this.trainsAtStation.findIndex(trainAtStation => trainAtStation.id === train.id);
     }
 
+    /**
+     * People add themselves to a station when waiting
+     * @param person
+     */
     addPersonToStation(person) {
         if(this._getIndexOfPerson(person) === -1) {
             this.peopleAtStation.push(person);
         }
     }
 
+    /**
+     * People remove themselves from a station when they find a train
+     * @param person
+     */
     removePersonFromStation(person) {
         const personIndex = this._getIndexOfPerson(person);
         if(personIndex !== -1) {

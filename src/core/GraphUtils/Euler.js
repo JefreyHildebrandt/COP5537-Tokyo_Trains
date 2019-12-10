@@ -3,6 +3,10 @@ import {StationManager} from "../../entity/station/StationManager";
 import {DepthFirstSearch} from "./DepthFirstSearch";
 
 export class Euler {
+    /**
+     * Obtains the euler path, which touches all edges
+     * @returns {*}
+     */
     static getEulerianPath() {
         let stationManager = new StationManager();
         this.checkCanEuler(stationManager.stationMap);
@@ -11,6 +15,11 @@ export class Euler {
         return path;
     }
 
+    /**
+     * Sanity check which sees how many nodes are in the path
+     * @param stationMap
+     * @param path
+     */
     static checkPathForAllNodes(stationMap, path) {
         const pathSet = new Set(path);
         if (pathSet.size === stationMap.size) {
@@ -20,6 +29,10 @@ export class Euler {
         }
     }
 
+    /**
+     * Checks the in-degree and out-degree of all the nodes in the map
+     * @param stationMap
+     */
     static checkCanEuler(stationMap) {
         // number of in degree must equal number of out degree for each node
         let inDegreeCount = new Map();
@@ -41,6 +54,13 @@ export class Euler {
         console.log('In-degree matches out-degree. Good to go!');
     }
 
+    /**
+     * A helper function for the euler path
+     * @param stationMap
+     * @param currentStation
+     * @param path
+     * @returns {*}
+     */
     static getEulerUtil(stationMap, currentStation, path) {
         for (let i = 0; i < currentStation.edges.length; i++) {
             if (this.isValidNextEdge(stationMap, currentStation, i)) {
@@ -57,6 +77,13 @@ export class Euler {
         return path;
     }
 
+    /**
+     * Checks whether the next edge is a bridge
+     * @param stationMap
+     * @param currentStation
+     * @param nextEdgeIndex
+     * @returns {boolean}
+     */
     static isValidNextEdge(stationMap, currentStation, nextEdgeIndex) {
         if (currentStation.edges.length === 1) {
             return true;
@@ -68,14 +95,32 @@ export class Euler {
         return count1 <= count2;
     }
 
+    /**
+     * Removes an edge from the list
+     * @param stationMap
+     * @param currentStation
+     * @param edgeIndex
+     * @returns {*[]}
+     */
     static removeEdge(stationMap, currentStation, edgeIndex) {
         return currentStation.edges.splice(edgeIndex, 1);
     }
 
+    /**
+     * adds a new edge to the list
+     * @param currentStation
+     * @param edgeIndex
+     * @param edgeToAdd
+     */
     static addEdge(currentStation, edgeIndex, edgeToAdd) {
         currentStation.edges.splice(edgeIndex, 0, edgeToAdd);
     }
 
+    /**
+     * Finds any nodes with odd degrees and adds a link
+     * @param stationMap
+     * @returns {*}
+     */
     static eulerizeStationMap(stationMap) {
         const allOddStationIds = [];
         stationMap.forEach(station => {

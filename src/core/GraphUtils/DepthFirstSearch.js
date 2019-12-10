@@ -1,8 +1,20 @@
 export class DepthFirstSearch {
+    /**
+     * Depth first search that only returns the visited set
+     * @param stationMap
+     * @param stationToTest
+     * @returns {Set<any>}
+     */
     static depthFirstSearch(stationMap, stationToTest) {
         return this.depthFirstSearchPath(stationMap, stationToTest).visited;
     }
 
+    /**
+     * Depth first search that returns the path and visited
+     * @param stationMap
+     * @param stationToTest
+     * @returns {{path: *, visited: *}}
+     */
     static depthFirstSearchPath(stationMap, stationToTest) {
         const visited = new Set();
         const path = [];
@@ -25,6 +37,13 @@ export class DepthFirstSearch {
         });
     }
 
+    /**
+     * Counts the number of nodes it hits during the search
+     * @param stationMap
+     * @param currentStation
+     * @param visited
+     * @returns {number}
+     */
     static depthFirstSearchCount(stationMap, currentStation, visited) {
         if(visited === undefined) {
             visited = new Set();
